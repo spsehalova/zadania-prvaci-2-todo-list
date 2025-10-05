@@ -32,10 +32,10 @@
 
 <section class="add-new-task">
     <h2> Add a new task </h2>
-    <form id="add-task-form">
+    <form id="add-task-form" onsubmit="addTask(event)">
         <label style="height: 100%; margin: 0">
             <span style="display: none"> Your task name: </span>
-            <input type="text" id="new-task-input" placeholder="Enter a new task..." style="height: 100%" required>
+            <input type="text" id="new-task-input" placeholder="Enter a new task..." style="height: 100%" required name="task">
         </label>
         <button id="add-task-button" class="success" type="submit"> Add Task </button>
     </form>
