@@ -104,12 +104,6 @@ function render() {
             notCompletedTaskList.appendChild(taskElement);
         }
     });
-
-    // Dispatch afterRender event
-    window.dispatchEvent(new CustomEvent('afterRender', { detail: { tasks } }));
 }
-
-// Dispatch beforeFirstRender event and initial render
-window.dispatchEvent(new CustomEvent('beforeFirstRender', { detail: { tasks } }));
 
 render();
