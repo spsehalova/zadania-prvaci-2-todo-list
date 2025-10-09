@@ -1,15 +1,34 @@
+class Task {
+    id;
+    text;
+    completed;
+
+    constructor(text) {
+        this.id = crypto.randomUUID()
+        this.text = text;
+        this.completed = false;
+    }
+
+    complete() {
+        this.completed = true
+    }
+
+    restore() {
+        this.completed = false
+    }
+
+    static fromJSON(data) {
+        const task = new Task(data.text);
+        task.id = data.id;
+        task.completed = data.completed;
+        return task;
+    }
+}
+
 // State: Array of tasks
 let tasks = [
-    {
-        id: crypto.randomUUID(),
-        text: 'Code this TODO list',
-        completed: false
-    },
-    {
-        id: crypto.randomUUID(),
-        text: 'Go to school',
-        completed: true
-    }
+    new Task('Code this TODO List'),
+    new Task('Go to school'),
 ];
 
 // Get references to DOM elements
@@ -28,11 +47,9 @@ function addTask() {
     const taskText = newTaskInput.value.trim();
 
     // Add task to state
-    tasks.push({
-        id: crypto.randomUUID(),
-        text: taskText,
-        completed: false
-    });
+    tasks.push(
+        new Task(taskText)
+    );
 
     // Clear input and re-render
     newTaskInput.value = '';
@@ -55,9 +72,11 @@ function completeTask(e) {
     const taskId = taskElement.dataset.id;
     
     const task = tasks.find(task => task.id === taskId);
+
     if (task) {
-        task.completed = true;
+        task.complete()
     }
+
     render();
 }
 
@@ -67,8 +86,9 @@ function restoreTask(e) {
     const taskId = taskElement.dataset.id;
     
     const task = tasks.find(task => task.id === taskId);
+
     if (task) {
-        task.completed = false;
+        task.restore()
     }
     
     render();
@@ -104,6 +124,23 @@ function render() {
             notCompletedTaskList.appendChild(taskElement);
         }
     });
+
+    saveToLocalStorage()
 }
 
+function saveToLocalStorage() {
+    const jsonData = JSON.stringify(tasks);
+    localStorage.setItem('tasks', jsonData)
+}
+
+function loadFromLocalStorage() {
+    const jsonFromLocalStorage = localStorage.getItem('tasks')
+
+    if (jsonFromLocalStorage) {
+        const parsedData = JSON.parse(jsonFromLocalStorage)
+        tasks = parsedData.map(Task.fromJSON);
+    }
+}
+
+loadFromLocalStorage()
 render();
