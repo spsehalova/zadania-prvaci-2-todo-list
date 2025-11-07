@@ -68,12 +68,8 @@ Prepoj existujúcu TODO aplikáciu s fake REST API endpointom [DummyJSON](https:
 ## Krok 3: Uprav inicializáciu aplikácie
 **Súbor:** `script.js`
 
-- [ ] Na konci súboru vymaž:
-  ```javascript
-  window.dispatchEvent(new CustomEvent('beforeFirstRender', { detail: { tasks } }));
-  render();
   ```
-- [ ] Nahraď to volaním:
+- [ ] Pridaj:
   ```javascript
   loadTodos();
   ```
