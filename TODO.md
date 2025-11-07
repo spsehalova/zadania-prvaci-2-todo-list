@@ -57,9 +57,7 @@ Prepoj existujúcu TODO aplikáciu s fake REST API endpointom [DummyJSON](https:
   }));
   ```
 - [ ] Zavolaj `render()` po načítaní dát
-- [ ] Pridaj `try-catch` blok pre ošetrenie chýb:
-  - V `catch` bloku skús načítať dáta z `localStorage` ako zálohu
-  - Vypíš chybu do konzoly pomocou `console.error()`
+- [ ] Pridaj `try-catch` blok pre ošetrenie chýb
 
 **Checkpoint:** V konzole by si mal vidieť načítané úlohy z API
 
@@ -160,22 +158,6 @@ Prepoj existujúcu TODO aplikáciu s fake REST API endpointom [DummyJSON](https:
 
 ---
 
-## Krok 8: Pridaj localStorage ako zálohu
-**Súbor:** `script.js`, funkcia `render()`
-
-- [ ] V `render()` funkcii odstráň:
-  ```javascript
-  window.dispatchEvent(new CustomEvent('afterRender', { detail: { tasks } }));
-  ```
-- [ ] Nahraď to uložením do localStorage:
-  ```javascript
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-  ```
-
-**Checkpoint:** Dáta by sa mali ukladať do localStorage pri každej zmene
-
----
-
 ## 🎯 Finálne testovanie
 
 - [ ] Otvor aplikáciu v prehliadači
@@ -185,16 +167,13 @@ Prepoj existujúcu TODO aplikáciu s fake REST API endpointom [DummyJSON](https:
 - [ ] Funguje obnovenie úlohy?
 - [ ] Funguje mazanie úlohy?
 - [ ] Otvori DevTools → Network tab a over, že sa volajú správne API endpointy
-- [ ] Skontroluj localStorage v DevTools → Application tab
 
 ---
 
 ## 💡 Bonusové úlohy (voliteľné)
 
 - [ ] Pridaj loading spinner pri načítavaní dát z API
-- [ ] Implementuj debouncing pri ukladaní do localStorage
 - [ ] Pridaj toast notifikácie namiesto `alert()` pri chybách
-- [ ] Implementuj offline režim - ak nie je internet, pracuj len s localStorage
 - [ ] Pridaj možnosť filtrovania (všetky/dokončené/nedokončené)
 - [ ] Pridaj možnosť vyhľadávania v úlohách
 
@@ -205,13 +184,12 @@ Prepoj existujúcu TODO aplikáciu s fake REST API endpointom [DummyJSON](https:
 - [DummyJSON Todos API dokumentácia](https://dummyjson.com/docs/todos)
 - [MDN - Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - [MDN - Async/Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
-- [MDN - localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 
 ---
 
 ## ⚠️ Dôležité poznámky
 
-1. **DummyJSON neuchováva dáta** - všetky POST/PUT/PATCH/DELETE operácie sú len simulované. Preto používame localStorage ako persistenciu.
+1. **DummyJSON neuchováva dáta** - všetky POST/PUT/PATCH/DELETE operácie sú len simulované. 
 
 2. **Type coercion** - ID z API je `number`, ale z HTML data atribútu je `string`. Používaj `==` namiesto `===` alebo konvertuj typy.
 
